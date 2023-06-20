@@ -1,10 +1,10 @@
 ﻿
-public class ClassPokeTypes<T> : IPokeTypes<T> where T : class
+public class ClassPokeTypes
 {
     public PokeType PType { get; set; }
     public PokeType WeakTo {  get; set; }
     public PokeType StrongeTo { get; set; }
-    ClassPokeTypes(PokeType type, PokeType strong, PokeType weak)
+    public ClassPokeTypes(PokeType type, PokeType strong, PokeType weak)
     {
         PType = type;
         WeakTo = strong;
