@@ -32,11 +32,11 @@ public class Pokemon<T> : IPokeMon, IhasId
     {
         string PokemonString = 
             $"{Name} : {TypesPrinter()} type\n" +
-            $"HP:{Hp}   PWR:{Power}  SPD{Speed}\n";
+            $"HP:{Hp}   PWR:{Power}  SPD:{Speed}\n";
         foreach (var power in Powers)
         {
             PokemonString += "///////////////////////\n";
-            PokemonString += $"{power}";
+            PokemonString += $"{power}\n";
         }
         return PokemonString;  
     }
@@ -54,8 +54,12 @@ public class Pokemon<T> : IPokeMon, IhasId
     public void Addpower(Attacks<int>? powerToAdd)
     {
         if (powerToAdd == null) { return; }
-        if (Powers.Contains(powerToAdd)) { Console.WriteLine($"{Name} already has {powerToAdd.Name}"); return; }
-        if (Powers.Count() >= 4) { powerCapReached(powerToAdd); }
+        if (Powers.Contains(powerToAdd)) 
+        { 
+            Console.WriteLine($"{Name} already has {powerToAdd.Name}");
+            return;
+        }
+        if (Powers.Count() >= 4) { powerCapReached(powerToAdd); return; }
         Powers?.Add(powerToAdd);
     }
 
@@ -67,20 +71,24 @@ public class Pokemon<T> : IPokeMon, IhasId
         playerIntput = Console.ReadLine()?.ToLower().Replace(" ", "");
         if (playerIntput == null) { powerCapReached(powerToAdd); }
         if (playerIntput == "n") { return; }
-        if (playerIntput == "y")
+        if (playerIntput == "y") { }
+        foreach (var Power in Powers)
         {
-            foreach (var Power in Powers)
+            Console.WriteLine(Powers.IndexOf(Power)+1 + " -----------------------------------------------");
+            Console.WriteLine(Power);
+        }
+        while (true)
+        {
+            Console.WriteLine("Write the number of the power u want to replace [1 - 4]");
+            playerIntput = Console.ReadLine()?.ToLower().Replace(" ", "");
+            int playerIntputAsInt = Convert.ToInt32(playerIntput);
+            if (playerIntputAsInt >= 1 && playerIntputAsInt < 5 ) 
             {
-                Console.WriteLine(Powers.IndexOf(Power) + " -----------------------------------------------");
-                Console.WriteLine(Power);
+                Powers.Insert(playerIntputAsInt - 1, powerToAdd);
+                Powers.RemoveAt(playerIntputAsInt);
+                break;
             }
-            while (true)
-            {
-                Console.WriteLine("Write the number of the power u want to replace [1 - 4]");
-                playerIntput = Console.ReadLine()?.ToLower().Replace(" ", "");
-                if (playerIntput == null) { return; }
-            }
-            
+
         }
     }   
 }       
