@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace pokemon_game.extra
+﻿public static class Randomiser
 {
-    internal class Randomiser
+    public static int IntGen(int max)
     {
+        Random rnb = new Random();
+        return rnb.Next(max);
+    }
+
+    public static int IntGen(int max, int min)
+    {
+        Random rnb = new Random();
+        return rnb.Next(min, max);
     }
 }
+
